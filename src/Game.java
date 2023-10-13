@@ -1,6 +1,6 @@
 public class Game {
     Player player;
-    Gameframe gameframe;
+    GameFrame gameframe;
 
 
 }

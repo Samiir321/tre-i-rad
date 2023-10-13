@@ -6,29 +6,57 @@ public class Main {
     public static void main(String[] args) {
         Player player1 = new Player("X");
         Player player2 = new Player("O");
-        Game game = new Game();
-        Gameframe gameframe1 = new Gameframe();
+        GameFrame gameframe1 = new GameFrame(player1, player2);
 
-        Scanner sc = new Scanner( System.in);
-        System.out.println("Welcome to tic tac toe");
-        gameframe1.gameFramePrint();
-        System.out.println("Skriv en vilen rad (1-3) ");
-        int rad = sc.nextInt();
-        System.out.println("Skriv en vilen kolumm (1-3) ");
-        int kol = sc.nextInt();
-        gameframe1.playerMove('X',rad, kol);
-        gameframe1.gameFramePrint();
+        Scanner sc = new Scanner(System.in);
+
+        int rad;
+        int kol;
+        String Again = "Yes";
+        boolean stopTheGame = true;
+        while (Again.equalsIgnoreCase("yes")) {
+            gameframe1.resetGameFrame();
+            while (true) {
+
+                System.out.println("Welcome to tic tac toe");
+                gameframe1.gameFramePrint();
+                System.out.println("Write a which line (0-2 / ) player " + player1.getPlayersName());
+                rad = sc.nextInt();
+                sc.nextLine();
+                System.out.println("Write a which column (0-2 ) player " + player1.getPlayersName());
+                kol = sc.nextInt();
+                sc.nextLine();
+                gameframe1.playerMove('X', rad, kol);
+
+                gameframe1.gameFramePrint();
+                if (gameframe1.theWinnerOfTheGame('X') || gameframe1.drawGame('X')) { // om spelare har fått tre i rad ska
+                    stopTheGame = false;
+
+                    break;
+
+                }
+
+                System.out.println("Write a which line (0-2 ) player " + player2.getPlayersName());
+                rad = sc.nextInt();
+                sc.nextLine();
+                System.out.println("Write a which column (0-2 ) player " + player2.getPlayersName());
+                kol = sc.nextInt();
+                sc.nextLine();
+                gameframe1.playerMove('O', rad, kol);
+                gameframe1.gameFramePrint();
+                if (gameframe1.theWinnerOfTheGame('O') || gameframe1.drawGame('O')) {
+                    stopTheGame = false;
+                    break;
+                }
 
 
+            }
+            stopTheGame = true;
+            System.out.println("You Want To Play Again ( Yes or no )");
+            Again = sc.nextLine();
 
 
-
-
-
-
-
-
-
+        }
 
     }
 }
